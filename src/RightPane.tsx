@@ -17,11 +17,6 @@ export class RightPane extends Component<{ conversation?: ConversationDto, onBac
         proxy.removeAllEventListener(this);
     }
 
-    onEnt()
-    {
-        
-    }
-
     onSend(text: string) {
         text = "J: " + text;
 
@@ -49,7 +44,7 @@ export class RightPane extends Component<{ conversation?: ConversationDto, onBac
                         </div>
                         <div className="send-message row">
                             <TextInputAndButton type="text" placeholder="Type something awesome here..."
-                                buttonContent="Send" onClick={x => this.onSend(x)} onEnter={() => this.onEnt()} />
+                                buttonContent="Send" onClick={x => this.onSend(x)} />
                         </div>
                     </>
                 }
