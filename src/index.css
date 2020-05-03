@@ -143,11 +143,6 @@ button:hover {
     }
 }
 
-.right-pane {
-    border: solid #aaa;
-    border-width: 0 0 0 1px;
-}
-
 .right-pane .conversation-header {
     padding: 6px 8px;
     font-weight: 500;
@@ -170,11 +165,21 @@ button:hover {
     }
 }
 
-@media (min-width: 650px){
-    .right-pane{
-        border: none;
+@media (min-width: 650px) {
+    .right-pane {
+        border: solid #aaa;
+        border-width: 0 0 0 1px;
     }
 }
+@media (max-width: 650px) {
+    .right-pane {
+        border: solid #aaa;
+        border-width: 0 0 0 1px;
+    }
+}
+
+
+
 
 .messages {
     border: solid #aaa;
