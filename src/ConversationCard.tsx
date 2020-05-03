@@ -17,7 +17,8 @@ export class ConversationCard extends Component<{
     componentWillUnmount() {
         proxy.removeAllEventListener(this);
     }
-    
+
+
     render() {
         let lastMessage = this.props.conversation.lastMessages.length > 0 ?
             this.props.conversation.lastMessages[this.props.conversation.lastMessages.length - 1] : null;

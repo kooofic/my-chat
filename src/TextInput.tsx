@@ -8,10 +8,9 @@ export interface TextInputOptions {
     type?: "text" | "password" | "email";
     placeholder?: string;
     onEnter?: () => void;
-    autofocus?: boolean; buttonContent?: string;
-    onClick?: (text: string) => boolean | void;
-
+    autofocus?: boolean;
 };
+
 
 export class TextInput extends Component<TextInputOptions>
 {
@@ -55,6 +54,7 @@ export interface TextInputAndButtonOptions extends TextInputOptions {
 export class TextInputAndButton extends Component<TextInputAndButtonOptions>
 {
     textInput = React.createRef<TextInput>();
+
     onClick() {
         if (this.props.onClick?.(this.textInput.current?.state.value ?? ""))
             this.textInput.current?.setState({ value: "" });
@@ -64,7 +64,6 @@ export class TextInputAndButton extends Component<TextInputAndButtonOptions>
         return (
             <div className="text-input-and-button">
                 <TextInput {...this.props} ref={this.textInput} onEnter={() => this.onClick()} />
-
                 <button type="button" onClick={() => this.onClick()}>
                     {this.props.buttonContent}
                 </button>

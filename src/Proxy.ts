@@ -1,11 +1,6 @@
 import { OutgoingPacket, InboxDto, IncomingPacket, MessageDto } from "./chat";
 import { EventProducer } from "./EventProducer";
 
-interface ProxyEventMap {
-    "login": () => void;
-    "message": (channelId: string, message: MessageDto) => void;
-    "conversation": (channelId: string) => void;
-}
 
 class Proxy  extends EventProducer<ProxyEventMap>{
     private ws: WebSocket;
@@ -15,11 +10,9 @@ class Proxy  extends EventProducer<ProxyEventMap>{
         super()
         this.ws = new WebSocket("wss://raja.aut.bme.hu/chat/");
         this.ws.addEventListener("open", () => {
-            // this.ws.send("Hello");
-        });
-        this.ws.addEventListener("message", e => {
-        });
 
+        });
+        
         this.ws.addEventListener("message", e => {
             let p = <IncomingPacket>JSON.parse(e.data);
             switch (p.type) {
@@ -33,8 +26,8 @@ class Proxy  extends EventProducer<ProxyEventMap>{
                     break;
                 case "message":
                     let cid = p.channelId;
-                    this.dispatch( "message", cid, p.message );
                     this.inbox!.conversations.find(x => x.channelId === cid)?.lastMessages.push(p.message);
+                    this.dispatch( "message", cid, p.message );
                     break;
                 case "conversationAdded":
                     this.inbox!.conversations.push(p.conversation);
@@ -51,5 +44,10 @@ class Proxy  extends EventProducer<ProxyEventMap>{
 
 }
 
+interface ProxyEventMap {
+    "login": () => void;
+    "message": (channelId: string, message: MessageDto) => void;
+    "conversation": (channelId: string) => void;
+}
 
 export var proxy = new Proxy();
